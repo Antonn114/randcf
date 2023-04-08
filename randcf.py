@@ -56,13 +56,13 @@ for i in user_status.json()['result']:
 
 # Parsing arguments
 
-parser = argparse.ArgumentParser(description="Return random problem(s) from Codeforces.com",
+parser = argparse.ArgumentParser(prog='randrc', description="Return random problem(s) from Codeforces.com",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-m', '--min', type=int, default=default_min, help='Set minimum rating of problem.')
-parser.add_argument('-M', '--max', type=int, default=default_max, help='Set maximum rating of problem.')
-parser.add_argument('-n', type=int, default=default_num, help='Number of problems.')
-parser.add_argument('-t', '--tags', type=str, nargs='*', help='Remove problems without one of the tags')
-parser.add_argument('--strict', action='store_true', help='If enabled, program only includes problems with all of the given tags')
+parser.add_argument('-m', '--min', type=int, default=default_min, help='Set minimum rating of problem (s)')
+parser.add_argument('-M', '--max', type=int, default=default_max, help='Set maximum rating of problem (s)')
+parser.add_argument('-n', type=int, default=default_num, help='Number of problem(s) to show')
+parser.add_argument('-t', '--tags', type=str, nargs='*', help="Set tags and remove problems without any of the provided tags")
+parser.add_argument('--strict', action='store_true', help="Remove problems without any of the provided tags")
 args = parser.parse_args()
 
 # Parsing problems
@@ -99,7 +99,7 @@ for i in content['result']['problems']:
     problems.append(i)
 
 if len(problems) < 1:
-    print("No problems found with given parameters!")
+    print("No problems found under given parameters!")
 
 # Choosing random problems
 
