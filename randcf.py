@@ -13,41 +13,46 @@ if content['status'] != 'OK':
 
 # Parsing default variables
 
-default_min = 800
-default_max = 1400
-default_num = 5
-default_username = ''
+# default settings the first time the user starts the script. Changing this dict doesn't change randcf_settings.json
+
+settings = {
+    "min": 800,
+    "max": 1400,
+    "n": 5,
+    "user": ""
+}
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-if not os.path.exists(os.path.join(__location__, "randcf_settings.txt")):
-    f = open(os.path.join(__location__, "./randcf_settings.txt"), "w")
-    f.write("min={}\nmax={}\nnum={}\nusr={}".format(default_min, default_max, default_num, default_username)) 
+if not os.path.exists(os.path.join(__location__, "randcf_settings.json")):
+    f = open(os.path.join(__location__, "./randcf_settings.json"), "w")
+    f.write(json.dumps(settings, indent=4))
     f.close()
 
-f = open(os.path.join(__location__, "randcf_settings.txt"), "r+")
-default_min = int(f.readline()[4:])
-default_max = int(f.readline()[4:])
-default_num = int(f.readline()[4:])
-default_username = f.readline()[4:].strip()
+f = open(os.path.join(__location__, "randcf_settings.json"), 'r+')
+settings = json.load(f)
 
-if len(default_username) < 1:
-    default_username = input('What is your Codeforces username? ')
-    print("Welcome, {}!".format(default_username))
-user_info = requests.get('https://codeforces.com/api/user.info?handles={}'.format(default_username))
-if (user_info.json()['status'] != 'OK'):
+if len(settings['user']) < 1:
+    settings['user'] = input('What is your Codeforces username? ')
+    print("Welcome, {}!".format(settings['user']))
+
+    user_info = requests.get('https://codeforces.com/api/user.info?handles={}'.format(settings['user']))
+    if (user_info.json()['status'] != 'OK'):
         raise Exception('Requesting user failed.')
-f.seek(0)
-f.write("min={}\nmax={}\nnum={}\nusr={}".format(default_min, default_max, default_num, default_username))
+
+    f.seek(0)
+    f.write(json.dumps(settings, indent=4))
+
 f.close()
 
-# Parsing finished problems
+# Fetching finished problems
 
-user_status = requests.get('https://codeforces.com/api/user.status?handle={}'.format(default_username))
+user_status = requests.get('https://codeforces.com/api/user.status?handle={}'.format(settings['user']))
 submissions = user_status.json()
 
 if submissions['status'] != 'OK':
     raise Exception('Requesting user submissions failed.')
+
 AC_problems = []
 for i in user_status.json()['result']:
     if i['verdict'] != 'OK':
@@ -58,9 +63,9 @@ for i in user_status.json()['result']:
 
 parser = argparse.ArgumentParser(prog='randrc', description="Return random problem(s) from Codeforces.com",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('-m', '--min', type=int, default=default_min, help='Set minimum rating of problem (s)')
-parser.add_argument('-M', '--max', type=int, default=default_max, help='Set maximum rating of problem (s)')
-parser.add_argument('-n', type=int, default=default_num, help='Number of problem(s) to show')
+parser.add_argument('-m', '--min', type=int, default=settings['min'], help='Set minimum rating of problem (s)')
+parser.add_argument('-M', '--max', type=int, default=settings['max'], help='Set maximum rating of problem (s)')
+parser.add_argument('-n', type=int, default=settings['n'], help='Number of problem(s) to show')
 parser.add_argument('-t', '--tags', type=str, nargs='*', help="Set tags and remove problems without any of the provided tags")
 parser.add_argument('--strict', action='store_true', help="Remove problems without any of the provided tags")
 args = parser.parse_args()
