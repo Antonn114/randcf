@@ -29,7 +29,7 @@ f = open(os.path.join(__location__, "randcf_settings.txt"), "r+")
 default_min = int(f.readline()[4:])
 default_max = int(f.readline()[4:])
 default_num = int(f.readline()[4:])
-default_username = f.readline()[4:]
+default_username = f.readline()[4:].strip()
 
 if len(default_username) < 1:
     default_username = input('What is your Codeforces username? ')
