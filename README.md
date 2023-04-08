@@ -13,7 +13,7 @@ randcf is a simple python CLI that gets random Codeforces problems
 
 It is recommended to set an alias for the CLI on your machine for quick usage. To run the CLI without an alias, just use `python3 path/to/randcf.py`
 
-For first-time users, the CLI will ask to input your Codeforces username and create `randcf_settings.txt` in the same directory. It will not ask you for your username the next time you run the program.
+For first-time users, the CLI will ask to input your Codeforces username and create `randcf_settings.txt` in the same directory as `randcf.py`. It will not ask you for your username the next time you run the program.
 
 You can modify `randcf_settings.txt` to change the default settings for flags `-n`, `-m`, `-M` or your Codeforces username
 
