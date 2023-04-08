@@ -29,7 +29,7 @@ python3 path/to/randcf.py [-h] [-m MIN] [-M MAX] [-n N] [-t [TAGS ...]] [--stric
 It is recommended to assign the command `python3 path/to/randcf.py` an alias on your machine (like in your `.bashrc` for Linux) for quick and easy access.
 
 For first-time users, the script will create `randcf_settings.json` in the same directory as `randcf.py` and then ask for your Codeforces username (this ensures that the script only shows problems the user hasn't gotten AC yet).
-The script will not ask you again for your username the next time you run the script, unless the `usr` field in `randcf_settings.json` is left empty.
+The script will not ask you again for your username the next time you run the script, unless the value for `user` in `randcf_settings.json` is left empty.
 
 ## Modifying default settings
 
