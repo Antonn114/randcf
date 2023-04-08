@@ -1,4 +1,0 @@
-min=800
-max=1400
-num=5
-usr=Antonn_114
