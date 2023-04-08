@@ -11,10 +11,13 @@ randcf is a simple python CLI that gets random Codeforces problems
 | `--strict` | Remove problems that don't have **all** of the provided tags | `--tags 'dfs and similar' 'dp' 'greedy' --strict` |
 | `--help` | Does what you think it does | |
 
-It is recommended to set an alias for `python3 path/to/main.py` on your machine for quick usage
+It is recommended to set an alias for the CLI on your machine for quick usage. To run the CLI without an alias, just use `python3 path/to/randcf.py`
 
-For first-time users, the CLI will ask to input your Codeforces username. It will not ask you on other times you run the program.
+For first-time users, the CLI will ask to input your Codeforces username and create `randcf_settings.txt` in the same directory. It will not ask you for your username the next time you run the program.
 
-You can modify `randcf_settings.txt` (created on first time you start the program) to change the default settings for minimum and maximum rating range, number of problems or your Codeforces username.
+You can modify `randcf_settings.txt` to change the default settings for flags `-n`, `-m`, `-M` or your Codeforces username
 
-![Image showing an example of using rand c f](/assets/example.png)
+<p align="center">
+  <img src="/assets/example.png">
+p>
+
