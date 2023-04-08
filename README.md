@@ -19,5 +19,4 @@ You can modify `randcf_settings.txt` to change the default settings for flags `-
 
 <p align="center">
   <img src="/assets/example.png">
-p>
-
+</p>
