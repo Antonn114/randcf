@@ -13,19 +13,19 @@ if content['status'] != 'OK':
 
 # Parsing default variables
 
-
-
 default_min = 800
 default_max = 1400
 default_num = 5
 default_username = ''
 
-if not os.path.exists("randcf_settings.txt"):
-    f = open("randcf_settings.txt", "w")
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+if not os.path.exists(os.path.join(__location__, "randcf_settings.txt")):
+    f = open(os.path.join(__location__, "./randcf_settings.txt"), "w")
     f.write("min={}\nmax={}\nnum={}\nusr={}".format(default_min, default_max, default_num, default_username)) 
     f.close()
 
-f = open("randcf_settings.txt", "r+")
+f = open(os.path.join(__location__, "randcf_settings.txt"), "r+")
 default_min = int(f.readline()[4:])
 default_max = int(f.readline()[4:])
 default_num = int(f.readline()[4:])
