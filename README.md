@@ -1,6 +1,31 @@
 # randcf
 
-randcf is a simple python CLI that gets random Codeforces problems
+A simple python script to get random Codeforces problems
+
+## Prerequisites
+
+`request` and `numpy` are necessary to run the script. Simply run the following command to install all of these packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Simply run the following command
+
+```bash
+python3 path/to/randcf.py
+```
+
+It is recommended to assign the command above an alias on your machine (like in your .bashrc) for quick and easy access.
+
+For first-time users, the script will create `randcf_settings.txt` in the same directory as `randcf.py` and then ask for your Codeforces username (this ensures the script only shows problems that the user hasn't got AC).
+The script will not ask you again for your username the next time you run the script, unless the `usr` field in `randcf_settings.txt` is left empty.
+
+You can modify `randcf_settings.txt` to change the default settings for flags `-n`, `-m`, `-M` or your Codeforces username
+
+## Flags
 
 | Flag | Description | Example |
 | --- | --- | --- |
@@ -11,11 +36,7 @@ randcf is a simple python CLI that gets random Codeforces problems
 | `--strict` | Remove problems without **all** of the provided tags | `--tags 'dfs and similar' 'dp' 'greedy' --strict` |
 | `--help` | Does what you think it does | |
 
-It is recommended to set an alias for the CLI on your machine for quick usage. To run the CLI without an alias, just use `python3 path/to/randcf.py`
-
-For first-time users, the CLI will create `randcf_settings.txt` in the same directory as `randcf.py` and ask for your Codeforces username (to remove problems that you've AC already). The CLI will not ask you for your username the next time you run the program.
-
-You can modify `randcf_settings.txt` to change the default settings for flags `-n`, `-m`, `-M` or your Codeforces username
+## Example
 
 <p align="center">
   <img src="/assets/example.png">
