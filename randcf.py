@@ -82,6 +82,8 @@ for i in content['result']['problems']:
     x = str(i['contestId']) + i['index']
     if x in AC_problems:
         continue
+    if 'tags' in i and '*special' in i['tags']:
+        continue
     if args.tags is not None:
         if 'tags' not in i:
             continue
