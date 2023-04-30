@@ -2,14 +2,8 @@ import argparse
 import os
 import json
 import requests
-from numpy import random
 import time
-
-r = requests.get('https://codeforces.com/api/problemset.problems')
-content = r.json()
-
-if content['status'] != 'OK':
-    raise Exception('Requesting problemset failed.')
+import random
 
 # Parsing default variables
 
@@ -72,21 +66,41 @@ args = parser.parse_args()
 
 # Parsing problems
 
+r = requests.get('https://codeforces.com/api/problemset.problems')
+content = r.json()
+
+if content['status'] != 'OK':
+    raise Exception('Requesting problemset failed.')
+
+contest_r = requests.get('https://codeforces.com/api/contest.list?gym=false')
+contest_r_json = contest_r.json();
+
+if contest_r_json['status'] != 'OK':
+    raise Exception('Requesting contests failed.')
+
+april_fools_contests = []
+
+for i in contest_r_json['result']:
+    if "April Fools" in i['name']:
+        april_fools_contests.append(i['id'])
+
 problems = []
 
 for i in content['result']['problems']:
     if 'rating' not in i:
         continue
+    if 'tags' not in i:
+        continue
+    if '*special' in i['tags']:
+        continue
+    if i['contestId'] in april_fools_contests:
+        continue
     if not i['rating'] in range(args.min, args.max + 1):
         continue
-    x = str(i['contestId']) + i['index']
-    if x in AC_problems:
+    if str(i['contestId']) + i['index'] in AC_problems:
         continue
-    if 'tags' in i and '*special' in i['tags']:
-        continue
+    
     if args.tags is not None:
-        if 'tags' not in i:
-            continue
         if args.strict:
             flag = False
             for j in args.tags:
@@ -126,5 +140,3 @@ for i in range(min(args.n, len(problems))):
     print()
     print('\tlink: https://codeforces.com/problemset/problem/{}/{}'.format(problems[i]['contestId'], problems[i]['index']))
     print()
-
-
