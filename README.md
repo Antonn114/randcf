@@ -4,10 +4,16 @@ A simple python script to get random Codeforces problems
 
 ## Prerequisites
 
-`requests` version `2.28.2` and `numpy` version `1.24.2` are necessary to run `randcf.py`. Simply run the following command to install all of these packages:
+Python 3.11 and some packages listed in `"requirements.txt"` is necessary to run `randcf.py`. Simply run the following command to install all of these packages:
 
 ```bash
 pip install -r requirements.txt
+```
+
+or 
+
+```bash
+python -m pip install -r requirements.txt
 ```
 
 ## Usage
